@@ -55,24 +55,57 @@
   }
 </style>
 
+<div style="text-align: center; margin-bottom: 20px;">
+  <label for="moodSorter">Sort by Mood:</label>
+  <select id="moodSorter">
+    <option value="all">All</option>
+    <option value="Happy">Happy</option>
+    <option value="Angry">Angry</option>
+    <option value="Sleepy">Sleepy</option>
+  </select>
+  <button id="filterButton">Go</button> <!-- Added "Go" button -->
+</div>
+
 <h1 style="font-size: 5rem; font-weight: bold; color: #333; text-align: center;">Cookie's Adventures</h1>
 <div class="row post-wrapper">
   <% @posts.each do |post| %>
-    <div class="col-md-4">
-      <div class="post">
-        <% if post.image.attached? %>
-          <%= image_tag url_for(post.image), class: "post-image", alt: "Post Image", style: "width: 400px; height: 400px;" %>
-        <% end %>
-        <div class="post-content">
-          <h5 class="post-title"><%= post.title %></h5>
-          <p class="post-description"><%= post.description %></p>
-          <div class="post-details">
-            <p><strong>Mood:</strong> <%= post.mood %></p>
-            <p><strong>Date:</strong> <%= post.date %></p>
-            <p><strong>Age:</strong> <%= post.age %></p>
-          </div>
-        </div>
+  <div class="col-md-4 post" data-mood="<%= post.mood %>">
+    <div class="post-content" id="<%= post.id %>" data-date="<%= post.date %>">
+      <% if post.image.attached? %>
+      <%= image_tag url_for(post.image), class: "post-image", alt: "Post Image", style: "width: 400px; height: 400px;" %>
+      <% end %>
+      <h5 class="post-title"><%= post.title %></h5>
+      <p class="post-description"><%= post.description %></p>
+      <div class="post-details">
+        <p><strong>Mood:</strong> <%= post.mood %></p>
+        <p><strong>Date:</strong> <%= post.date %></p>
+        <p><strong>Age:</strong> <%= post.age %></p>
       </div>
+
+<%= link_to "View Comments", post_comments_path(post_id: post.id) %>
+
+
     </div>
+  </div>
   <% end %>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const filterButton = document.getElementById('filterButton');
+
+    filterButton.addEventListener('click', function() {
+      const mood = document.getElementById('moodSorter').value;
+      const posts = document.querySelectorAll('.post');
+
+      posts.forEach(post => {
+        const postMood = post.getAttribute('data-mood');
+        if (mood === 'all' || postMood === mood) {
+          post.style.display = ''; // Display posts matching the selected mood or all posts
+        } else {
+          post.style.display = 'none'; // Hide posts not matching the selected mood
+        }
+      });
+    });
+  });
+</script>
