@@ -7,6 +7,12 @@ Rails.application.routes.draw do
 
   root "posts#index"
   get 'posts', to: 'posts#index', as: 'posts'
+
+  # config/routes.rb
+  resources :posts do
+    resources :comments, only: [:index, :new, :create]
+  end
+  
   # Defines the root path route ("/")
   # root "posts#index"
 end
