@@ -5,4 +5,5 @@ class Post < ApplicationRecord
   validates :date, presence: true
   validates :age, presence: true
   has_one_attached :image
+  has_many :comments, dependent: :destroy
 end
