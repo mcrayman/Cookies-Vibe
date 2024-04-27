@@ -1,11 +1,78 @@
-<h1>Posts</h1>
-<ul>
+<style>
+  .post-container {
+    background-color: #f5f5f5;
+    padding: 20px;
+  }
+
+  .post {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    display: inline-block;
+    max-width: 100%;
+  }
+
+  .post-image {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    width: 100%;
+    height: auto;
+  }
+
+  .post-content {
+    padding: 20px;
+  }
+
+  .post-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .post-description {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    overflow-wrap: break-word; /* Add this line */
+  }
+
+  .post-details {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 10px;
+  }
+
+  .post-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .post-wrapper .col-md-4 {
+    flex: 0 0 25%;
+    max-width: 25%;
+    padding: 10px;
+  }
+</style>
+
+<h1 style="font-size: 5rem; font-weight: bold; color: #333; text-align: center;">Cookie's Adventures</h1>
+<div class="row post-wrapper">
   <% @posts.each do |post| %>
-    <li><%= post.title %></li>
-    <li><%= image_tag url_for(post.image), size: "300x400" if post.image.attached? %></li>
-    <li><%= post.description %></li>
-    <li><%= post.mood %></li>
-    <li><%= post.date %></li>
-    <li><%= post.age %></li>
+    <div class="col-md-4">
+      <div class="post">
+        <% if post.image.attached? %>
+          <%= image_tag url_for(post.image), class: "post-image", alt: "Post Image", style: "width: 400px; height: 400px;" %>
+        <% end %>
+        <div class="post-content">
+          <h5 class="post-title"><%= post.title %></h5>
+          <p class="post-description"><%= post.description %></p>
+          <div class="post-details">
+            <p><strong>Mood:</strong> <%= post.mood %></p>
+            <p><strong>Date:</strong> <%= post.date %></p>
+            <p><strong>Age:</strong> <%= post.age %></p>
+          </div>
+        </div>
+      </div>
+    </div>
   <% end %>
-</ul>
+</div>
