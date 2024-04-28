@@ -28,7 +28,7 @@ Intermediate Submission
 Matthew McMeans
 
 
-For my final project, I will build a Ruby on Rails, blog-style web application about the adventures of my cat, Cookie, using PostgreSQL. It will have functionality to upload posts/blogs with an image of Cookie, description of what she is doing, and her current mood. It will also implement a sorting filter which can sort the posts by her mood. 
+For my final project, I will build a Ruby on Rails, blog-style web application about the adventures of my cat, Cookie, using PostgreSQL. It will have functionality to view posts/blogs with an image of Cookie, description of what she is doing, and her current mood. It will also implement a sorting filter which can sort the posts by her mood. 
 
 •	Post Model
 o	Attributes
